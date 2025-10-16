@@ -1,0 +1,695 @@
+// src/styles/_components.scss
+// Component-specific styles
+
+// Card component
+.card {
+  @include card;
+  display: grid;
+  gap: $spacing-sm;
+  cursor: pointer;
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: translateY(-2px);
+    
+    @include mq-max($breakpoint-sm) {
+      transform: translateY(-1px); // Reduced hover effect on mobile
+    }
+  }
+  
+  // Enhanced touch interaction for mobile
+  @media (hover: none) and (pointer: coarse) {
+    &:hover {
+      transform: none;
+    }
+    
+    &:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  }
+  
+  img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: $border-radius-sm;
+  }
+  
+  .card-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    @include text-truncate;
+    
+    @include mq-max($breakpoint-sm) {
+      font-size: $font-size-xs;
+    }
+  }
+  
+  .card-meta {
+    font-size: $font-size-xs;
+    color: $color-text-light;
+    
+    @include mq-max($breakpoint-sm) {
+      font-size: 10px;
+    }
+  }
+  
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-light;
+    font-size: $font-size-xs;
+    
+    @include mq-max($breakpoint-sm) {
+      font-size: 10px;
+    }
+    
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+// Carousel component
+.carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 180px;
+  gap: $spacing-sm;
+  overflow: hidden;
+  padding: $spacing-xs 0 $spacing-md;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  touch-action: pan-y; // Allow vertical scrolling but handle horizontal touch events
+  
+  // Enhanced touch interaction for mobile
+  @media (hover: none) and (pointer: coarse) {
+    touch-action: pan-y pinch-zoom; // Allow vertical scroll and pinch zoom
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  }
+  
+  // Responsive adjustments
+  @include mq-max($breakpoint-lg) {
+    grid-auto-columns: 160px;
+    gap: $spacing-xs;
+  }
+  
+  @include mq-max($breakpoint-md) {
+    grid-auto-columns: 140px;
+    padding: $spacing-xs 0 $spacing-sm;
+  }
+  
+  @include mq-max($breakpoint-sm) {
+    grid-auto-columns: 120px;
+    gap: $spacing-xs;
+  }
+}
+
+// Carousel navigation arrows
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid $color-border;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background: $color-white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%) scale(1.05);
+  }
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  
+  // Enhanced touch interaction
+  @media (hover: none) and (pointer: coarse) {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    
+    &:hover {
+      transform: translateY(-50%) scale(1);
+    }
+    
+    &:active {
+      transform: translateY(-50%) scale(0.9);
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+  
+  &.carousel-nav--left {
+    left: -10px;
+  }
+  
+  &.carousel-nav--right {
+    right: -10px;
+  }
+  
+  &.carousel-nav--disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: $color-text;
+  }
+}
+
+// Carousel container with navigation
+.carousel-container {
+  position: relative;
+  width: 100%;
+  
+  &:hover .carousel-nav {
+    opacity: 1;
+  }
+  
+  .carousel-nav {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
+// Film detail hero section
+.film-detail {
+  .hero {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    align-items: start;
+    
+    @include mq-max($breakpoint-lg) {
+      grid-template-columns: 200px 1fr;
+      gap: $spacing-lg;
+    }
+    
+    @include mq-max($breakpoint-md) {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: $spacing-lg;
+      justify-items: center;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      gap: $spacing-md;
+      margin-bottom: $spacing-lg;
+    }
+  }
+  
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 260px;
+    
+    @include mq-max($breakpoint-lg) {
+      max-width: 200px;
+    }
+    
+    @include mq-max($breakpoint-md) {
+      max-width: 300px;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      max-width: 250px;
+    }
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    display: block;
+    
+    @include mq-max($breakpoint-md) {
+      margin: 0 auto;
+    }
+  }
+  
+  .hero-placeholder {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background: linear-gradient(135deg, $color-gray-light, $color-gray-light);
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm;
+    color: $color-text-light;
+    
+    &.hidden {
+      display: none;
+    }
+    
+    .placeholder-icon {
+      font-size: $font-size-4xl;
+      opacity: 0.7;
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-3xl;
+      }
+    }
+    
+    .placeholder-text {
+      font-size: $font-size-sm;
+      text-align: center;
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-xs;
+      }
+    }
+  }
+  
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    max-width: 100%;
+    
+    @include mq-max($breakpoint-md) {
+      gap: $spacing-sm;
+      text-align: center;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      gap: $spacing-xs;
+    }
+    
+    h1 {
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-tight;
+      margin: 0;
+      color: $color-text;
+      word-wrap: break-word;
+      
+      @include mq-max($breakpoint-lg) {
+        font-size: $font-size-2xl;
+      }
+      
+      @include mq-max($breakpoint-md) {
+        font-size: $font-size-xl;
+      }
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-lg;
+      }
+    }
+    
+    .release-date,
+    .rating {
+      font-size: $font-size-base;
+      color: $color-text-light;
+      margin: 0;
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-sm;
+      }
+    }
+    
+    .rating {
+      font-weight: $font-weight-medium;
+    }
+    
+    .overview {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+      color: $color-text-light;
+      margin: 0;
+      
+      @include mq-max($breakpoint-lg) {
+        font-size: $font-size-base;
+      }
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-sm;
+      }
+    }
+    
+    .btn {
+      align-self: flex-start;
+      margin-top: $spacing-sm;
+      
+      @include mq-max($breakpoint-md) {
+        align-self: center;
+      }
+      
+      @include mq-max($breakpoint-sm) {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+  }
+}
+
+// Wishlist styles
+.wishlist {
+  .wishlist-header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+    
+    @include mq-max($breakpoint-md) {
+      flex-direction: column;
+      gap: $spacing-md;
+      align-items: flex-start;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      margin-bottom: $spacing-md;
+    }
+    
+    h1 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      
+      @include mq-max($breakpoint-lg) {
+        font-size: $font-size-xl;
+      }
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-lg;
+      }
+    }
+    
+    .wishlist-actions {
+      @include flex-center;
+      gap: $spacing-md;
+      
+      @include mq-max($breakpoint-sm) {
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+      }
+    }
+    
+    .wishlist-count {
+      background-color: $color-primary;
+      color: $color-white;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $border-radius-full;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      
+      @include mq-max($breakpoint-sm) {
+        font-size: $font-size-xs;
+        padding: $spacing-xs;
+      }
+    }
+  }
+  
+  .wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $spacing-md;
+    
+    @include mq-max($breakpoint-lg) {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: $spacing-sm;
+    }
+    
+    @include mq-max($breakpoint-md) {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: $spacing-sm;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: $spacing-xs;
+    }
+  }
+  
+  .wishlist-item {
+    @include card;
+    display: grid;
+    gap: $spacing-sm;
+    
+    // Enhanced touch interaction for mobile
+    @media (hover: none) and (pointer: coarse) {
+      &:hover {
+        box-shadow: $shadow-sm;
+      }
+      
+      &:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+      }
+    }
+    
+    .wishlist-item-link {
+      display: block;
+      text-decoration: none;
+    }
+    
+    .wishlist-item-poster {
+      width: 100%;
+      height: 240px; // Fixed height instead of aspect-ratio
+      object-fit: cover;
+      object-position: center;
+      border-radius: $border-radius-sm;
+    }
+    
+    .wishlist-item-placeholder {
+      width: 100%;
+      height: 240px; // Match the poster height
+      background-color: $color-gray-light;
+      border-radius: $border-radius-sm;
+      @include flex-center;
+      flex-direction: column;
+      gap: $spacing-xs;
+      color: $color-text-light;
+      font-size: $font-size-xs;
+      
+      &.hidden {
+        display: none;
+      }
+      
+      .placeholder-icon {
+        font-size: $font-size-2xl;
+        opacity: 0.7;
+      }
+      
+      .placeholder-text {
+        font-size: $font-size-xs;
+        text-align: center;
+      }
+    }
+    
+    .wishlist-item-info {
+      padding: $spacing-sm;
+      
+      .wishlist-item-title {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        margin-bottom: $spacing-xs;
+        @include text-truncate;
+      }
+      
+      .wishlist-item-category {
+        font-size: $font-size-xs;
+        color: $color-text-light;
+        margin-bottom: $spacing-xs;
+      }
+      
+      .wishlist-item-date {
+        font-size: $font-size-xs;
+        color: $color-text-muted;
+        margin-bottom: $spacing-sm;
+      }
+    }
+  }
+  
+  .wishlist-empty {
+    text-align: center;
+    padding: $spacing-3xl;
+    color: $color-text-light;
+    
+    .empty-icon {
+      font-size: $font-size-4xl;
+      margin-bottom: $spacing-md;
+    }
+    
+    h2 {
+      font-size: $font-size-xl;
+      margin-bottom: $spacing-sm;
+    }
+    
+    p {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-lg;
+    }
+  }
+}
+
+// Badge styles
+.badge {
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 2px 6px;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  margin-left: $spacing-xs;
+}
+
+// Button variants
+.btn--primary {
+  @include button-variant($color-primary, $color-white);
+}
+
+.btn--danger {
+  @include button-variant($color-danger, $color-white);
+}
+
+.btn--small {
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+}
+
+// Loading states
+.loading {
+  @include flex-center;
+  padding: $spacing-xl;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid $color-gray-light;
+    border-top: 4px solid $color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Error states
+.error {
+  text-align: center;
+  padding: $spacing-xl;
+  color: $color-danger;
+  
+  .error-icon {
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-md;
+  }
+  
+  h2 {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-sm;
+  }
+  
+  p {
+    font-size: $font-size-base;
+    margin-bottom: $spacing-md;
+  }
+  
+  .retry-btn {
+    @include button-base;
+    @include button-variant($color-danger, $color-white);
+  }
+}
+
+// Lazy loading styles
+.lazy-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  
+  &.loading {
+    opacity: 0;
+  }
+  
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+.lazy-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $color-gray-light, $color-gray-light);
+  border-radius: inherit;
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-xs;
+  color: $color-text-light;
+  font-size: $font-size-xs;
+  position: relative;
+  
+  .placeholder-icon {
+    font-size: $font-size-2xl;
+    opacity: 0.7;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  .placeholder-text {
+    font-size: $font-size-xs;
+    text-align: center;
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Loading spinner styles
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  padding: $spacing-xl;
+}
+
+.loading-spinner {
+  text-align: center;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid $color-gray-light;
+    border-top: 4px solid $color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto $spacing-md;
+  }
+  
+  p {
+    color: $color-text-light;
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

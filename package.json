@@ -1,0 +1,69 @@
+{
+  "name": "film-browser",
+  "description": "A modern React application for browsing films with SSR, built for MyTheresa Frontend Engineer technical challenge",
+  "version": "1.0.0",
+  "type": "module",
+  "keywords": [
+    "react",
+    "typescript",
+    "ssr",
+    "vite",
+    "tmdb",
+    "film-browser",
+    "mytheresa"
+  ],
+  "author": "Frontend Engineer Candidate",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/film-browser.git"
+  },
+  "scripts": {
+    "dev": "node api.js && tsx --env-file=.env src/server/server.ts",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "build": "npm run build:client && npm run build:server",
+    "build:analyze": "set ANALYZE=true && npm run build",
+    "preview": "set NODE_ENV=production&& tsx src/server/server.ts",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "analyze": "npm run build:analyze",
+    "perf:lighthouse": "echo 'Run lighthouse audit on http://localhost:5173'",
+    "perf:bundle": "npm run build:analyze"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "express": "^5.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^6.30.1",
+    "react-router-dom": "^6.30.1",
+    "vite": "^5.4.10",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "jsdom": "^27.0.0",
+    "rollup-plugin-visualizer": "^6.0.4",
+    "sass": "^1.93.2",
+    "terser": "^5.44.0",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.45.0",
+    "vite-bundle-analyzer": "^1.2.3",
+    "vitest": "^3.2.4"
+  }
+}

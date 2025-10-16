@@ -1,0 +1,167 @@
+// src/styles/pages/_home.scss
+// Home page specific styles
+
+.home {
+  display: grid;
+  gap: $spacing-lg;
+  
+  .home-header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    
+    h1 {
+      font-size: clamp($font-size-2xl, 4vw + 1rem, $font-size-4xl);
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-sm;
+      color: $color-text;
+    }
+    
+    p {
+      font-size: $font-size-lg;
+      color: $color-text-light;
+      margin: 0;
+    }
+  }
+  
+  .home-sections {
+    display: grid;
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+    overflow-x: hidden;
+  }
+  
+  .section {
+    overflow-x: hidden;
+    
+    .section-header {
+      @include flex-between;
+      margin-bottom: $spacing-md;
+      
+      h2 {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-semibold;
+        color: $color-text;
+      }
+      
+      
+      .section-link {
+        @include button-base;
+        padding: $spacing-xs $spacing-sm;
+        font-size: $font-size-sm;
+        background-color: transparent;
+        color: $color-primary;
+        border: 1px solid $color-primary;
+        
+        &:hover {
+          background-color: $color-primary;
+          color: $color-white;
+        }
+      }
+    }
+    
+    .section-content {
+      .carousel {
+        // Carousel styles are in _components.scss
+      }
+    }
+  }
+  
+  // Category-specific styling
+  .section--trending {
+    .section-header h2 {
+      color: $color-trending;
+    }
+  }
+  
+  .section--top-rated {
+    .section-header h2 {
+      color: $color-top-rated;
+    }
+  }
+  
+  .section--now-playing {
+    .section-header h2 {
+      color: $color-now-playing;
+    }
+  }
+}
+
+// Responsive adjustments
+@include mq-max($breakpoint-lg) {
+  .home {
+    gap: $spacing-md;
+    
+    .home-sections {
+      gap: $spacing-lg;
+    }
+  }
+}
+
+@include mq-max($breakpoint-md) {
+  .home {
+    gap: $spacing-md;
+    
+    .home-header {
+      margin-bottom: $spacing-lg;
+      
+      h1 {
+        font-size: $font-size-2xl;
+      }
+      
+      p {
+        font-size: $font-size-base;
+      }
+    }
+    
+    .home-sections {
+      gap: $spacing-lg;
+    }
+    
+    .section {
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-sm;
+        
+        h2 {
+          font-size: $font-size-lg;
+        }
+      }
+    }
+  }
+}
+
+@include mq-max($breakpoint-sm) {
+  .home {
+    gap: $spacing-sm;
+    
+    .home-header {
+      margin-bottom: $spacing-md;
+      
+      h1 {
+        font-size: $font-size-xl;
+      }
+      
+      p {
+        font-size: $font-size-sm;
+      }
+    }
+    
+    .home-sections {
+      gap: $spacing-md;
+    }
+    
+    .section {
+      .section-header {
+        h2 {
+          font-size: $font-size-base;
+        }
+        
+        .section-link {
+          font-size: $font-size-xs;
+          padding: $spacing-xs;
+        }
+      }
+    }
+  }
+}
