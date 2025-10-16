@@ -1,0 +1,261 @@
+// src/styles/main.scss
+// Import base styles
+@import 'base/variables';
+@import 'base/reset';
+@import 'base/mixins';
+@import 'base/helpers';
+
+// Import components
+@import 'components';
+
+// Import pages
+@import 'pages/home';
+
+// Animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Main layout styles
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  background-color: $color-background;
+  color: $color-text;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.container {
+  width: min(100% - 32px, $container-width);
+  margin-inline: auto;
+  
+  @include mq-max($breakpoint-sm) {
+    width: min(100% - 16px, $container-width);
+  }
+}
+
+// Header styles
+.header {
+  border-bottom: 1px solid $color-border;
+  background-color: $color-white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  .container {
+    @include flex-center;
+    gap: $spacing-md;
+    padding: $spacing-sm 0;
+    
+    @include mq-max($breakpoint-md) {
+      flex-direction: column;
+      gap: $spacing-sm;
+      padding: $spacing-sm 0;
+    }
+    
+    @include mq-max($breakpoint-sm) {
+      padding: $spacing-xs 0;
+    }
+  }
+  
+  strong {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    
+    @include mq-max($breakpoint-sm) {
+      font-size: $font-size-base;
+    }
+  }
+  
+  nav {
+    display: flex;
+    gap: $spacing-sm;
+    
+    @include mq-max($breakpoint-sm) {
+      gap: $spacing-xs;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    a {
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $border-radius;
+      transition: background-color 0.2s ease;
+      font-size: $font-size-sm;
+      
+      @include mq-max($breakpoint-sm) {
+        padding: $spacing-xs;
+        font-size: $font-size-xs;
+      }
+      
+      &:hover {
+        background-color: $color-gray-light;
+      }
+      
+      &.active {
+        background-color: $color-primary;
+        color: $color-white;
+      }
+      
+      .badge {
+        @include mq-max($breakpoint-sm) {
+          font-size: 10px;
+          padding: 1px 4px;
+        }
+      }
+    }
+  }
+}
+
+// Main content
+main {
+  padding-block: $spacing-lg;
+  min-height: calc(100vh - 200px);
+  overflow-x: hidden;
+  
+  @include mq-max($breakpoint-md) {
+    padding-block: $spacing-md;
+    min-height: calc(100vh - 180px);
+  }
+  
+  @include mq-max($breakpoint-sm) {
+    padding-block: $spacing-sm;
+    min-height: calc(100vh - 160px);
+  }
+}
+
+// Footer
+footer {
+  border-top: 1px solid $color-border;
+  padding: $spacing-md 0;
+  margin-top: $spacing-xl;
+  text-align: center;
+  color: $color-text-light;
+}
+
+// Button styles
+.btn {
+  @include button-base;
+  
+  @include mq-max($breakpoint-sm) {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+  }
+  
+  &--trending {
+    @include button-variant($color-trending, $color-white);
+  }
+  
+  &--topRated {
+    @include button-variant($color-top-rated, $color-white);
+  }
+  
+  &--nowPlaying {
+    @include button-variant($color-now-playing, $color-white);
+  }
+  
+  &--wishlist {
+    @include button-variant($color-wishlist, $color-white);
+  }
+  
+  &--small {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+    
+    @include mq-max($breakpoint-sm) {
+      padding: $spacing-xs;
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+// Theme variations
+.theme--trending {
+  --font-active: #{$font-trending};
+  --color-primary: #{$color-trending};
+  --color-primary-light: #{lighten($color-trending, 20%)};
+  --color-primary-dark: #{darken($color-trending, 10%)};
+}
+
+.theme--topRated {
+  --font-active: #{$font-top-rated};
+  --color-primary: #{$color-top-rated};
+  --color-primary-light: #{lighten($color-top-rated, 20%)};
+  --color-primary-dark: #{darken($color-top-rated, 10%)};
+}
+
+.theme--nowPlaying {
+  --font-active: #{$font-now-playing};
+  --color-primary: #{$color-now-playing};
+  --color-primary-light: #{lighten($color-now-playing, 20%)};
+  --color-primary-dark: #{darken($color-now-playing, 10%)};
+}
+
+// Apply theme fonts to sections
+.section {
+  font-family: var(--font-active, $font-family-base);
+  
+  .section-header h2 {
+    color: var(--color-primary, $color-text);
+    font-weight: $font-weight-bold;
+  }
+  
+  .btn--trending {
+    background-color: var(--color-primary, $color-trending);
+    border-color: var(--color-primary, $color-trending);
+    
+    &:hover {
+      background-color: var(--color-primary-dark, darken($color-trending, 10%));
+      border-color: var(--color-primary-dark, darken($color-trending, 10%));
+    }
+  }
+  
+  .btn--topRated {
+    background-color: var(--color-primary, $color-top-rated);
+    border-color: var(--color-primary, $color-top-rated);
+    
+    &:hover {
+      background-color: var(--color-primary-dark, darken($color-top-rated, 10%));
+      border-color: var(--color-primary-dark, darken($color-top-rated, 10%));
+    }
+  }
+  
+  .btn--nowPlaying {
+    background-color: var(--color-primary, $color-now-playing);
+    border-color: var(--color-primary, $color-now-playing);
+    
+    &:hover {
+      background-color: var(--color-primary-dark, darken($color-now-playing, 10%));
+      border-color: var(--color-primary-dark, darken($color-now-playing, 10%));
+    }
+  }
+}
+
+.film-detail {
+  font-family: var(--font-active, $font-family-base);
+}
